@@ -1,0 +1,362 @@
+// log top 3 countries with highest prescence in the data
+
+    const country = item.country;
+    if (country) {
+      // Make sure country is defined
+      countryCounts[country] = (countryCounts[country] || 0) + 1;
+    }
+
+    // Convert the countryCounts object into an array of [country, count] pairs
+    const countryCountPairs = Object.entries(countryCounts);
+
+    // Sort the pairs based on count, in descending order
+    const sortedCountryCountPairs = countryCountPairs.sort(
+      (a, b) => b[1] - a[1]
+    );
+
+    // Select the top 3 countries, if there are fewer than 3 countries, it selects all available
+    const top3Countries = sortedCountryCountPairs.map(([country, count]) => {
+      console.log({ country, count });
+    });
+
+// ===================================== snapshot of parseInsightsData (year vs intensity) =====================================
+
+import { tokens } from "../theme";
+
+export var lineGraphData = [
+  {
+    id: "america",
+    data: [],
+    color: tokens("dark").greenAccent[500],
+  },
+  {
+    id: "china",
+    data: [],
+    color: tokens("dark").blueAccent[500],
+  },
+  {
+    id: "germany",
+    data: [],
+    color: tokens("dark").redAccent[500],
+    
+  },
+  {
+    id: "japan",
+    data: [],
+    color: tokens("dark").greenAccent[300],
+  },
+  {
+    id: "india",
+    data: [],
+    color: tokens("dark").blueAccent[300],
+  },
+  {
+    id: "russia",
+    data: [],
+    color: tokens("dark").redAccent[300],
+  },
+  {
+    id: "uk",
+    data: [],
+    color: tokens("dark").greenAccent[200],
+  },
+  {
+    id: "france",
+    data: [],
+    color: tokens("dark").blueAccent[200],
+  },
+  {
+    id: "brazil",
+    data: [],
+    color: tokens("dark").redAccent[100],
+  },
+  {
+    id: "south africa",
+    data: [],
+    color: tokens("dark").greenAccent[100],
+  },
+];
+
+export const parseInsightsData = (data) => {
+  let sumOfIntensities = 0;
+  let sumOfLikelihoods = 0;
+  let totalIntensitiesAmerica = 0;
+  let totalIntensitiesChina = 0;
+  let totalIntensitiesGermany = 0;
+  let totalIntensitiesJapan = 0;
+  let totalIntensitiesIndia = 0;
+  let totalLikelihoodsAmerica = 0;
+  let totalLikelihoodsChina = 0;
+  let totalLikelihoodsGermany = 0;
+  let totalLikelihoodsJapan = 0;
+  let totalLikelihoodsIndia = 0;
+
+  data.forEach((item) => {
+    const intensity = Number(item.intensity); // Make sure it's a number
+
+    if (!isNaN(intensity)) {
+      // Check if the conversion to number is successful
+      sumOfIntensities += intensity;
+    }
+    const likelihood = Number(item.likelihood); // Make sure it's a number
+    if (!isNaN(likelihood)) {
+      // Check if the conversion to number is successful
+      sumOfLikelihoods += likelihood;
+    }
+
+    const year = item.start_year.toString() || new Date(item.added).getFullYear().toString();
+
+    if (item.country === "United States of America") {
+      let countryIndex = lineGraphData.findIndex((x) => x.id === "america");
+      //Check if the conversion to number is successful
+      if (!isNaN(intensity)) {
+        totalIntensitiesAmerica += intensity;
+      }
+
+      if (!isNaN(likelihood)) {
+        totalLikelihoodsAmerica += likelihood;
+      }
+
+      //line graph data where x is year and y is intensity
+
+      if (year && intensity) {
+        let index = lineGraphData[countryIndex].data.findIndex(
+          (x) => x.x === year
+        );
+        if (index !== -1) {
+          lineGraphData[countryIndex].data[index].y += intensity;
+        } else {
+          lineGraphData[countryIndex].data.push({ x: year, y: intensity });
+        }
+      }
+    }
+
+    if (item.country === "China") {
+      //Check if the conversion to number is successful
+
+      let countryIndex = lineGraphData.findIndex((x) => x.id === "china");
+
+      if (!isNaN(intensity)) {
+        totalIntensitiesChina += intensity;
+      }
+
+      if (!isNaN(likelihood)) {
+        totalLikelihoodsChina += likelihood;
+      }
+
+        if (year && intensity) {
+            let index = lineGraphData[countryIndex].data.findIndex(
+            (x) => x.x === year
+            );
+            if (index !== -1) {
+            lineGraphData[countryIndex].data[index].y += intensity;
+            } else {
+            lineGraphData[countryIndex].data.push({ x: year, y: intensity });
+            }
+        }
+    }
+
+    if (item.country === "Germany") {
+      //Check if the conversion to number is successful
+
+      let countryIndex = lineGraphData.findIndex((x) => x.id === "germany");
+
+      if (!isNaN(intensity)) {
+        totalIntensitiesGermany += intensity;
+      }
+
+      if (!isNaN(likelihood)) {
+        totalLikelihoodsGermany += likelihood;
+      }
+
+      if (year && intensity) {
+        let index = lineGraphData[countryIndex].data.findIndex(
+          (x) => x.x === year
+        );
+        if (index !== -1) {
+          lineGraphData[countryIndex].data[index].y += intensity;
+        } else {
+          lineGraphData[countryIndex].data.push({ x: year, y: intensity });
+        }
+      }
+    }
+
+    if (item.country === "Japan") {
+      //Check if the conversion to number is successful
+
+      let countryIndex = lineGraphData.findIndex((x) => x.id === "japan");
+
+      if (!isNaN(intensity)) {
+        totalIntensitiesJapan += intensity;
+      }
+
+      if (!isNaN(likelihood)) {
+        totalLikelihoodsJapan += likelihood;
+      }
+
+        if (year && intensity) {
+            let index = lineGraphData[countryIndex].data.findIndex(
+            (x) => x.x === year
+            );
+            if (index !== -1) {
+            lineGraphData[countryIndex].data[index].y += intensity;
+            } else {
+            lineGraphData[countryIndex].data.push({ x: year, y: intensity });
+            }
+        }
+    }
+
+    if (item.country === "India") {
+      //Check if the conversion to number is successful
+
+        let countryIndex = lineGraphData.findIndex((x) => x.id === "india");
+
+      if (!isNaN(intensity)) {
+        totalIntensitiesIndia += intensity;
+      }
+
+      if (!isNaN(likelihood)) {
+        totalLikelihoodsIndia += likelihood;
+      }
+
+        if (year && intensity) {
+            let index = lineGraphData[countryIndex].data.findIndex(
+            (x) => x.x === year
+            );
+            if (index !== -1) {
+            lineGraphData[countryIndex].data[index].y += intensity;
+            } else {
+            lineGraphData[countryIndex].data.push({ x: year, y: intensity });
+            }
+        }
+
+    }
+
+    if (item.country === "Russia") {
+      //Check if the conversion to number is successful
+
+      let countryIndex = lineGraphData.findIndex((x) => x.id === "russia");
+
+      if (year && intensity) {
+        let index = lineGraphData[countryIndex].data.findIndex(
+          (x) => x.x === year
+        );
+        if (index !== -1) {
+          lineGraphData[countryIndex].data[index].y += intensity;
+        } else {
+          lineGraphData[countryIndex].data.push({ x: year, y: intensity });
+        }
+      }
+    }
+
+    if (item.country === "United Kingdom") {
+        let countryIndex = lineGraphData.findIndex((x) => x.id === "uk");
+        console.log("Country Index:", countryIndex); // Debugging
+      
+        if (countryIndex !== -1 && year && intensity) {
+          let index = lineGraphData[countryIndex].data.findIndex((x) => x.x === year);
+          console.log("Year Index:", index); // Debugging
+      
+          if (index !== -1) {
+            lineGraphData[countryIndex].data[index].y += intensity;
+          } else {
+            lineGraphData[countryIndex].data.push({ x: year, y: intensity });
+          }
+        }
+      }
+      
+    if (item.country === "France") {
+      //Check if the conversion to number is successful
+
+      let countryIndex = lineGraphData.findIndex((x) => x.id === "france");
+
+        if (year && intensity) {
+            let index = lineGraphData[countryIndex].data.findIndex(
+            (x) => x.x === year
+            );
+            if (index !== -1) {
+            lineGraphData[countryIndex].data[index].y += intensity;
+            } else {
+            lineGraphData[countryIndex].data.push({ x: year, y: intensity });
+            }
+        }
+    }
+
+    if (item.country === "Brazil") {
+      //Check if the conversion to number is successful
+
+        let countryIndex = lineGraphData.findIndex((x) => x.id === "brazil");
+
+        if (year && intensity) {
+            let index = lineGraphData[countryIndex].data.findIndex(
+            (x) => x.x === year
+            );
+            if (index !== -1) {
+            lineGraphData[countryIndex].data[index].y += intensity;
+            } else {
+            lineGraphData[countryIndex].data.push({ x: year, y: intensity });
+            }
+        }
+    }
+
+    if (item.country === "South Africa") {
+      //Check if the conversion to number is successful
+
+        let countryIndex = lineGraphData.findIndex((x) => x.id === "south africa");
+
+        if (year && intensity) {
+            let index = lineGraphData[countryIndex].data.findIndex(
+            (x) => x.x === year
+            );
+            if (index !== -1) {
+            lineGraphData[countryIndex].data[index].y += intensity;
+            } else {
+            lineGraphData[countryIndex].data.push({ x: year, y: intensity });
+            }
+        }
+    }
+  });
+
+  console.log("lineGraphData: " ,lineGraphData);
+
+  //remove duplicate years from lineGraphData
+    lineGraphData.forEach((country) => {
+        country.data = country.data.filter((v, i, a) => a.findIndex((t) => t.x === v.x) === i);
+    });
+
+
+  const totalInsights = data.length;
+
+  console.log({
+    america: totalLikelihoodsAmerica,
+    china: totalLikelihoodsChina,
+    germany: totalLikelihoodsGermany,
+    japan: totalLikelihoodsJapan,
+    india: totalLikelihoodsIndia,
+  });
+
+  return {
+    totalInsights,
+    sumOfIntensities,
+    sumOfLikelihoods,
+    averageIntensity: sumOfIntensities / totalInsights,
+    averageLikelihood: sumOfLikelihoods / totalInsights,
+    countryWiseTotalIntensity: {
+      america: totalIntensitiesAmerica,
+      china: totalIntensitiesChina,
+      germany: totalIntensitiesGermany,
+      japan: totalIntensitiesJapan,
+      india: totalIntensitiesIndia,
+    },
+    countryWiseTotalLikelihoods: {
+      america: totalLikelihoodsAmerica,
+      china: totalLikelihoodsChina,
+      germany: totalLikelihoodsGermany,
+      japan: totalLikelihoodsJapan,
+      india: totalLikelihoodsIndia,
+    },
+  };
+};
+
+====================================================================================================================================================
+

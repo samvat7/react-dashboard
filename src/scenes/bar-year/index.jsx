@@ -1,34 +1,33 @@
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
+import BarChart from "../../components/BarChart";
+import { parseBarGraphDataVsYear } from "../../utils/parseBarDataVsYear";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { parseInsightsData } from "../../utils/parseInsightsData";
+import { parsedCountryList } from "../../utils/parseCountryList";
+import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import * as React from "react";
 
-const Line = () => {
+const BarYear = () => {
   var parsedData = [];
 
   const [filteredData, setFilteredData] = useState([]);
 
-  const parsedCountryList = ["america", "china", "india", "russia", "japan"];
-
-  const [country, setCountry] = React.useState("india");
+  const [country, setCountry] = React.useState("India");
 
   //using axios to get data from the server, then parsing it, then filtering it to get the data for the current country
-
+  
   useEffect(() => {
+    console.log("useEffect entered")
     axios
       .get("http://localhost:3000/data")
       .then((response) => {
-        parsedData = parseInsightsData(response.data);
-        const lineGraphData = parsedData.lineGraphData;
-        console.log("lineGraphData: ", lineGraphData);
-        setFilteredData(lineGraphData);
+        parsedData = parseBarGraphDataVsYear(response.data);
+        console.log("BarYearVsGraphData: ", parsedData);
+        setFilteredData(parsedData);
       })
       .catch((error) => {
         console.log(error);
@@ -41,7 +40,7 @@ const Line = () => {
 
   return (
     <Box m="20px">
-      <Header title="Line Chart" subtitle="Simple Line Chart" />
+      <Header title="Bar Chart" subtitle="Simple Bar Chart" />
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Country</InputLabel>
         <Select
@@ -59,10 +58,14 @@ const Line = () => {
         </Select>
       </FormControl>
       <Box height="75vh">
-        <LineChart isDashboard={false} data={filteredData} country={country} />
+        <BarChart
+          isBarVsYear={true}
+          propData={filteredData}
+          country={country}
+        />
       </Box>
     </Box>
   );
 };
 
-export default Line;
+export default BarYear;

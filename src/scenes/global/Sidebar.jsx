@@ -80,7 +80,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                  ADMINS
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -107,10 +107,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Ed Roh
+                  User
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  Black Coffer
                 </Typography>
               </Box>
             </Box>
@@ -132,27 +132,27 @@ const Sidebar = () => {
             >
               Data
             </Typography>
-            <Item
+            {/* <Item
               title="Manage Team"
               to="/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
-              title="Contacts Information"
+              title="Insights"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Invoices Balances"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
 
             <Typography
               variant="h6"
@@ -168,7 +168,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Calendar"
               to="/calendar"
               icon={<CalendarTodayOutlinedIcon />}
@@ -181,7 +181,7 @@ const Sidebar = () => {
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
 
             <Typography
               variant="h6"
@@ -191,14 +191,21 @@ const Sidebar = () => {
               Charts
             </Typography>
             <Item
-              title="Bar Chart"
+              title="Country & Sectors Chart"
               to="/bar"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Pie Chart"
+              title="Year Chart"
+              to="/bar-year"
+              icon={<BarChartOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Radar Chart"
               to="/pie"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}

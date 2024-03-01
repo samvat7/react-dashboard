@@ -1,15 +1,37 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
-import { mockBarData as data } from "../data/mockData";
+import { mockBarData } from "../data/mockData";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { parseInsightsData } from "../utils/parseInsightsData";
 
-const BarChart = ({ isDashboard = false }) => {
+const BarChart = ({ isDashboard = false, isBarVsYear, propData, country }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  
+    // Prepare data based on isBarVsYear flag
+    let finalRenderingData = [];
+    if (isBarVsYear) {
+      // Find the data for the specific country
+      const countryData = propData.find(
+        (dataPoint) => dataPoint.country === country
+      );
+      // Use the country-specific data if available, otherwise, default to an empty array
+      finalRenderingData = countryData ? countryData.data : [];
+    } else {
+      // If not isBarVsYear, use propData directly
+      finalRenderingData = propData;
+    }
+  
+    console.log("[Bar Vs Year]data being rendered: ", finalRenderingData);
+    console.log("isBarVsYear: ", isBarVsYear);
+  
 
+  
   return (
     <ResponsiveBar
-      data={data}
+      data={finalRenderingData} // changed
       theme={{
         // added
         axis: {
@@ -39,8 +61,15 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-      indexBy="country"
+      keys={[
+        "Energy",
+        "Manufacturing",
+        "Agriculture",
+        "Transport",
+        "Residential",
+        "Financial services",
+      ]}
+      indexBy={isBarVsYear ? "id" : "country"} // changed
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}
@@ -76,7 +105,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "country", // changed
+        legend: isBarVsYear ? "id" : "country", // changed
         legendPosition: "middle",
         legendOffset: 32,
       }}
@@ -84,7 +113,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "food", // changed
+        legend:  "intensity", // changed
         legendPosition: "middle",
         legendOffset: -40,
       }}
