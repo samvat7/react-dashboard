@@ -1,7 +1,10 @@
 # React Admin Dashboard
 
-Build a COMPLETE React Admin Dashboard App | React, Material UI, Data Grid, Light & Dark Mode
+Analytics dashboard with a dynamic MongoDB backend, with features like:
 
-Video: https://www.youtube.com/watch?v=wYpCWwD1oz0
-
-For all related questions and discussions about this project, check out the discord: https://discord.gg/2FfPeEk2mX
+1. Brief overview homepage
+2. All data summarised in tabular form
+3. Bar graph data 
+4. Radar charts
+5. Line charts
+6. Geographic chart
